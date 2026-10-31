@@ -1,0 +1,13 @@
+.venv/
+.venv-inference/
+vendor/
+.env
+.env.*
+progress/
+__pycache__/
+*.pyc
+data/*
+!data/commands.json
+outputs/
+checkpoints/
+.DS_Store

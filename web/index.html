@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ec">
+  <title>Silent speech · Camera to text</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <a class="wordmark" href="/" aria-label="Silent speech home"><span class="mark" aria-hidden="true">s<span>·</span>s</span> Silent speech</a>
+      <span id="service-status" class="service-status" role="status">Connecting to recognizer…</span>
+    </header>
+
+    <section class="intro" aria-labelledby="title">
+      <p class="eyebrow">CAMERA-TO-TEXT RESEARCH</p>
+      <h1 id="title">Say it silently.</h1>
+      <p class="lede">Mouth a short sentence, replay it, then see what the lip reader picks up.</p>
+      <p class="privacy"><span aria-hidden="true">◉</span> Camera only. Clips stay on your workstation.</p>
+    </section>
+
+    <div id="error" class="error" role="alert" hidden></div>
+
+    <div class="workspace">
+      <section class="panel capture-panel" aria-labelledby="capture-heading">
+        <div class="panel-heading"><h2 id="capture-heading"><span class="step">01</span> Capture</h2><span id="capture-state" class="quiet">Camera off</span></div>
+        <div class="video-stage">
+          <video id="video" muted playsinline aria-label="Camera preview and recorded clip"></video>
+          <div id="camera-placeholder" class="placeholder">
+            <div class="face-outline" aria-hidden="true"><span></span></div>
+            <p>Your camera preview appears here.</p>
+            <span>No microphone access needed.</span>
+          </div>
+          <span id="recording-indicator" class="recording-indicator" hidden><i aria-hidden="true"></i> Recording <span id="timer">0.0s</span></span>
+        </div>
+        <p id="capture-hint" class="hint">Face the camera in good light, with your whole mouth visible.</p>
+        <div class="actions">
+          <button id="camera-button" class="button secondary" type="button">Enable camera</button>
+          <button id="record-button" class="button primary" type="button" disabled><span class="record-dot" aria-hidden="true"></span>Record</button>
+          <button id="stop-button" class="button danger" type="button" hidden>Stop recording</button>
+        </div>
+        <div class="file-row">
+          <label class="file-label" for="file-input">Or choose a video file</label>
+          <input id="file-input" type="file" accept="video/webm,video/mp4,video/quicktime,.webm,.mp4,.mov" aria-label="Choose a video file">
+          <span id="limits" class="quiet">Up to 12 seconds · no audio track</span>
+        </div>
+        <div class="clip-actions">
+          <button id="transcribe-button" class="button primary full-width" type="button" disabled>Read my lips <span aria-hidden="true">→</span></button>
+          <button id="discard-button" class="button text-button" type="button" disabled>Discard clip</button>
+        </div>
+        <p id="progress-status" class="status-line" role="status" aria-live="polite">Enable your camera or choose a short video to begin.</p>
+      </section>
+
+      <section class="panel transcript-panel" aria-labelledby="transcript-heading">
+        <div class="panel-heading"><h2 id="transcript-heading"><span class="step">02</span> Transcript</h2><button id="copy-button" class="button small secondary" type="button" disabled>Copy text</button></div>
+        <label class="sr-only" for="transcript">Transcript — edit to correct the words</label>
+        <textarea id="transcript" placeholder="Your transcript will appear here." spellcheck="true" disabled></textarea>
+        <p id="result-detail" class="quiet result-detail">Experimental lip reading can miss or change words. Check the result.</p>
+
+        <div class="calibration">
+          <h3>Help build your calibration set</h3>
+          <p>Replay the clip, then edit the transcript to match the words you actually mouthed.</p>
+          <div id="mode-field" class="field" hidden>
+            <label for="speech-mode">How was this video recorded?</label>
+            <select id="speech-mode">
+              <option value="voiced_muted">Spoken footage with the audio removed</option>
+              <option value="silent">Words were mouthed silently</option>
+            </select>
+          </div>
+          <label class="confirm-label"><input id="confirm-reference" type="checkbox" disabled><span>I checked the replay and these words match the clip.</span></label>
+          <button id="save-button" class="button secondary full-width" type="button" disabled>Save confirmed words</button>
+          <p id="save-status" class="quiet" role="status">Saved examples are for training only. Saving does not train the model yet.</p>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p><strong>Keep it short and natural.</strong> Try one sentence of four to twelve words. Stay still, and keep your mouth in view.</p>
+      <p>This is a pretrained research model, not a personalized speech recognizer. Clips upload when you select “Read my lips”; discard removes the uploaded clip.</p>
+    </footer>
+  </main>
+</body>
+</html>
